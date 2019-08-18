@@ -33,6 +33,21 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $addDate;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $updDate;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -109,5 +124,41 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getAddDate(): ?\DateTimeImmutable
+    {
+        return $this->addDate;
+    }
+
+    public function setAddDate(\DateTimeImmutable $addDate): self
+    {
+        $this->addDate = $addDate;
+
+        return $this;
+    }
+
+    public function getUpdDate(): ?\DateTimeImmutable
+    {
+        return $this->updDate;
+    }
+
+    public function setUpdDate(?\DateTimeImmutable $updDate): self
+    {
+        $this->updDate = $updDate;
+
+        return $this;
     }
 }
