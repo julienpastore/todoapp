@@ -48,6 +48,11 @@ class User implements UserInterface
      */
     private $updDate;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\AccessToken", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $accessToken;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -158,6 +163,23 @@ class User implements UserInterface
     public function setUpdDate(?\DateTimeImmutable $updDate): self
     {
         $this->updDate = $updDate;
+
+        return $this;
+    }
+
+    public function getAccessToken(): ?AccessToken
+    {
+        return $this->accessToken;
+    }
+
+    public function setAccessToken(AccessToken $accessToken): self
+    {
+        $this->accessToken = $accessToken;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $accessToken->getUser()) {
+            $accessToken->setUser($this);
+        }
 
         return $this;
     }
